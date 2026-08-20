@@ -1,6 +1,6 @@
 terraform {
     backend "s3" {
-        bucket = "backend-storage"
+        bucket = "remote-backend-storage-bucket"
         region = "ap-south-1"
         key = "dev/terraform.tfstate"
         encrypt = true
