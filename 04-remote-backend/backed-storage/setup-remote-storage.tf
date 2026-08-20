@@ -14,6 +14,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "backend-storage" {
     bucket = "remote-backend-storage-bucket"
+    force_destroy= true
     tags = {
         team = "DevOps"
         backend = "backend-storage"
