@@ -8,16 +8,15 @@ terraform {
 }
 
 provider "aws" {
-    region = "ap-south-1"
+    region = var.region
     profile = "terraform"
 }
 
 resource "aws_s3_bucket" "backend-storage" {
-    bucket = "remote-backend-storage-bucket"
+    bucket = var.bucket
     force_destroy= true
     tags = {
-        team = "DevOps"
-        backend = "backend-storage"
-        version = "v1"
+        team = var.team
+        version = var.config_version
     }
 }
