@@ -16,6 +16,10 @@ resource "aws_instance" "ec2-one"{
     }
 }
 
-output "ec2-id" {
+output "ec2-one_id" {
     value = aws_instance.ec2-one.id
+}
+
+output "devOps_user_id" {
+    value =  aws_iam_user.devOPS.id
 }
