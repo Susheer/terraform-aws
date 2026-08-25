@@ -1,42 +1,4 @@
-resource "aws_iam_group" "developers" {
-    name = "developers"
-    path = "/users/"
-}
-
-resource "aws_iam_group" "HR" {
-    name = "HR"
-    path = "/users/"
-}
-
-resource "aws_iam_group_membership" "hr_members" {
-    name = "hr_members"
-    users = [
-        aws_iam_user.Lakhwa.name,
-        aws_iam_user.pushpa.name
-    ]
-    group = aws_iam_group.HR.name
-}
-
-
-resource "aws_iam_group" "developers" {
-    name = "developers"
-    path = "/users/"
-}
-
-resource "aws_iam_group" "HR" {
-    name = "HR"
-    path = "/users/"
-}
-
-resource "aws_iam_group_membership" "hr_members" {
-    name = "hr_members"
-    users = [
-        aws_iam_user.Lakhwa.name,
-        aws_iam_user.pushpa.name
-    ]
-    group = aws_iam_group.HR.name
-}
-
+# Create Users 
 resource "aws_iam_user" "Rajesh" {
     name = "Rajesh"
     tags = {
@@ -58,6 +20,26 @@ resource "aws_iam_user" "Sandeep" {
     }
 }
 
+# Create groups
+resource "aws_iam_group" "developers" {
+    name = "developers"
+    path = "/users/"
+}
+
+resource "aws_iam_group" "HR" {
+    name = "HR"
+    path = "/users/"
+}
+
+# Assign users into the groups
+resource "aws_iam_group_membership" "hr_members" {
+    name = "hr_members"
+    users = [
+        aws_iam_user.Lakhwa.name,
+        aws_iam_user.pushpa.name
+    ]
+    group = aws_iam_group.HR.name
+}
 
 resource "aws_iam_group_membership" "dev_members" {
     name = "dev_members"
