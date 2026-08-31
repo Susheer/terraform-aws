@@ -12,3 +12,13 @@ variable "aws-profile" {
     default = "terraform"
     type = string
 }
+
+variable "HRsName" {
+ type = list(string)
+ default = ["pushpa", "Lakhwa"]
+}
+
+variable "DevelopersName" {
+ type = list(string)
+ default = ["Sandeep", "Rajesh", "KishanSharma"]
+}
