@@ -7,15 +7,9 @@ resource "aws_iam_user" "Developers" {
     }
 }
 
-resource "aws_iam_user" "pushpa" {
-    name = "pushpa"
-    tags = {
-        Team = "HR"
-    }
-}
-
-resource "aws_iam_user" "Lakhwa" {
-    name = "Lakhwa"
+resource "aws_iam_user" "HRs" {
+    count = length(var.HRsName)
+    name = var.HRsName[count.index]
     tags = {
         Team = "HR"
     }
@@ -36,8 +30,8 @@ resource "aws_iam_group" "HR" {
 resource "aws_iam_group_membership" "hr_members" {
     name = "hr_members"
     users = [
-        aws_iam_user.Lakhwa.name,
-        aws_iam_user.pushpa.name
+        aws_iam_user.HRs[0].name,
+        aws_iam_user.HRs[1].name
     ]
     group = aws_iam_group.HR.name
 }

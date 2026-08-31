@@ -5,6 +5,6 @@ output "Developers" {
 
 output "Hr" {
     description = "A group is created to ref HR"
-    value = [aws_iam_group.HR.name]
+    value = aws_iam_user.HRs[*].name
 }
 
