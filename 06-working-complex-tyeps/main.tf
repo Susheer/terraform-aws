@@ -1,20 +1,7 @@
 # Create Users 
-resource "aws_iam_user" "Rajesh" {
-    name = "Rajesh"
-    tags = {
-        Team = "Developer"
-    }
-}
-
-resource "aws_iam_user" "KishanSharma" {
-    name = "KishanSharma"
-    tags = {
-        Team = "Developer"
-    }
-}
-
-resource "aws_iam_user" "Sandeep" {
-    name = "Sandeep"
+resource "aws_iam_user" "Developers" {
+    count = length(var.DevelopersName)
+    name = var.DevelopersName[count.index]
     tags = {
         Team = "Developer"
     }
@@ -59,8 +46,8 @@ resource "aws_iam_group_membership" "dev_members" {
     name = "dev_members"
     group = aws_iam_group.developers.name
     users = [
-        aws_iam_user.Sandeep.name,
-        aws_iam_user.KishanSharma.name,
-        aws_iam_user.Rajesh.name
+        aws_iam_user.Developers[0].name,
+        aws_iam_user.Developers[1].name,
+        aws_iam_user.Developers[2].name
     ]
 }
