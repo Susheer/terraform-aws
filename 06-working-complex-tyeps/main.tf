@@ -2,17 +2,13 @@
 resource "aws_iam_user" "Developers" {
     count = length(var.DevelopersName)
     name = var.DevelopersName[count.index]
-    tags = {
-        Team = "Developer"
-    }
+    tags = var.Developers_Tags
 }
 
 resource "aws_iam_user" "HRs" {
     count = length(var.HRsName)
     name = var.HRsName[count.index]
-    tags = {
-        Team = "HR"
-    }
+    tags = var.HR_Tags
 }
 
 # Create groups

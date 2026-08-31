@@ -22,3 +22,17 @@ variable "DevelopersName" {
  type = list(string)
  default = ["Sandeep", "Rajesh", "KishanSharma"]
 }
+
+variable "HR_Tags" {
+    type = map(string)
+    default = {
+        Team = "HR"
+    }
+}
+
+variable "Developers_Tags" {
+    type = map(string)
+    default = {
+        Team = "Developer"
+    }
+}
