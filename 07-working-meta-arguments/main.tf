@@ -1,3 +1,31 @@
+# Assign users into the groups
+
+resource "aws_iam_group_membership" "hr_members" {
+    name = "hr_members"
+    users = [
+        for username, user in var.Users :
+        username
+        if user.Department=="Human Resource"
+    ]
+    group = aws_iam_group.HR.name
+    depends_on = [
+        aws_iam_user.Users
+    ]
+}
+
+resource "aws_iam_group_membership" "dev_members" {
+    name = "dev_members"
+    group = aws_iam_group.developers.name
+    depends_on = [
+        aws_iam_user.Users
+    ]
+    users = [
+        for key, value in var.Users:
+        key
+        if value.Department == "Developers" 
+    ]
+}
+
 # Create Users 
 resource "aws_iam_user" "Users" {
     for_each = var.Users
@@ -16,28 +44,6 @@ resource "aws_iam_group" "developers" {
 resource "aws_iam_group" "HR" {
     name = "HR"
     path = "/users/"
-}
-
-# Assign users into the groups
-
-resource "aws_iam_group_membership" "hr_members" {
-    name = "hr_members"
-    users = [
-        for username, user in var.Users :
-        username
-        if user.Department=="Human Resource"
-    ]
-    group = aws_iam_group.HR.name
-}
-
-resource "aws_iam_group_membership" "dev_members" {
-    name = "dev_members"
-    group = aws_iam_group.developers.name
-    users = [
-        for key, value in var.Users:
-        key
-        if value.Department == "Developers" 
-    ]
 }
 
 
