@@ -1,10 +1,18 @@
 output "Developers" {
     description = "Developers created"
-    value = aws_iam_user.Developers[*].name
+    value = [
+        for key, value in var.Users:
+        aws_iam_user.Users[key].name
+        if value.Department == "Developers"
+    ]
 }
 
-output "Hr" {
+output "HR" {
     description = "A group is created to ref HR"
-    value = aws_iam_user.HRs[*].name
+    value = [
+        for key,value in var.Users:
+        aws_iam_user.Users[key].name
+        if value.Department == "Human Resource"
+    ]
 }
 

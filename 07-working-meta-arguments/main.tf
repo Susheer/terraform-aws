@@ -1,14 +1,10 @@
 # Create Users 
-resource "aws_iam_user" "Developers" {
-    count = length(var.DevelopersName)
-    name = var.DevelopersName[count.index]
-    tags = var.Developers_Tags
-}
-
-resource "aws_iam_user" "HRs" {
-    count = length(var.HRsName)
-    name = var.HRsName[count.index]
-    tags = var.HR_Tags
+resource "aws_iam_user" "Users" {
+    for_each = var.Users
+    name = each.key
+    tags = {
+        Department = each.value.Department
+    }
 }
 
 # Create groups
@@ -23,16 +19,25 @@ resource "aws_iam_group" "HR" {
 }
 
 # Assign users into the groups
+
 resource "aws_iam_group_membership" "hr_members" {
     name = "hr_members"
-    users = aws_iam_user.HRs[*].name
+    users = [
+        for username, user in var.Users :
+        username
+        if user.Department=="Human Resource"
+    ]
     group = aws_iam_group.HR.name
 }
 
 resource "aws_iam_group_membership" "dev_members" {
     name = "dev_members"
     group = aws_iam_group.developers.name
-    users = aws_iam_user.Developers[*].name
+    users = [
+        for key, value in var.Users:
+        key
+        if value.Department == "Developers" 
+    ]
 }
 
 

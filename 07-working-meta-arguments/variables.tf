@@ -13,28 +13,31 @@ variable "aws-profile" {
     type = string
 }
 
-variable "HRsName" {
- type = list(string)
- default = ["pushpa", "Lakhwa"]
-}
-
-variable "DevelopersName" {
- type = list(string)
- default = ["Sandeep", "Rajesh", "KishanSharma"]
-}
-
-variable "HR_Tags" {
-    type = map(string)
-    default = {
-        Team = "HR"
+variable "Users" {
+ type = map(object({
+    Department = string
+ }))
+ default = {
+    Sandeep = {
+        Department = "Developers"
     }
-}
 
-variable "Developers_Tags" {
-    type = map(string)
-    default = {
-        Team = "Developer"
+    Rajesh = {
+        Department = "Developers"
     }
+
+    KishanSharma = {
+        Department = "Developers"
+    }
+
+    pushpa = {
+        Department = "Human Resource"
+    }
+
+    Lakhwa = {
+        Department = "Human Resource"
+    }
+ }
 }
 
 variable "Servers" {
